@@ -19,3 +19,59 @@ A modern job board platform with real-time features, AI resume parsing, and secu
 ## 🏗️ Architecture
 
 (frontend) Next.js → (backend) NestJS → (db) PostgreSQL → (cache) Redis
+
+## 🛠️ Setup & Installation
+
+### Prerequisites
+- Node.js (v18+)
+- Docker & Docker Compose
+- PostgreSQL (if running locally without Docker)
+
+### 1. Infrastructure
+Start the database and cache services:
+```bash
+docker-compose up -d
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+# Install dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env # (Create .env based on requirement)
+# Ensure DATABASE_URL is set to: postgres://user:password@localhost:5432/jobboard
+
+# Generate Prisma Client
+npx prisma generate
+
+# Run migrations (if needed)
+# npx prisma migrate dev
+
+# Start server
+npm run start:dev
+```
+
+### 3. Frontend Setup
+```bash
+cd frontend
+# Install dependencies
+npm install
+
+# **IMPORTANT**: Copy shared library (Workaround)
+# You must manually copy the shared library to the frontend source 
+# because of current monorepo resolution limitations.
+# On Windows (PowerShell):
+Copy-Item -Recurse -Force ..\shared\src src\shared-lib
+# On Mac/Linux:
+# cp -r ../shared/src src/shared-lib
+
+# Start development server
+npm run dev
+```
+
+## 🚀 Running the App
+- **Backend API**: http://localhost:3000
+- **Frontend**: http://localhost:3001 (or 3000 if backend is on different port)
+
