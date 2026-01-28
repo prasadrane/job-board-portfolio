@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { Job, JobType } from '@jobboard/shared';
+import { API_ROUTES } from '@/lib/routes';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { JobCard } from '@/components/jobs/job-card';
@@ -23,7 +24,7 @@ export default function JobsPage() {
       if (filters.search) params.append('search', filters.search);
       if (filters.location) params.append('location', filters.location);
       if (filters.type) params.append('type', filters.type);
-      const { data } = await api.get(`/jobs?${params.toString()}`);
+      const { data } = await api.get(`${API_ROUTES.JOBS.LIST}?${params.toString()}`);
       return data;
     },
   });

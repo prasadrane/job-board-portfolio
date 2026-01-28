@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@jobboard/shared';
 import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { API_ROUTES } from '@/lib/routes';
 
 interface AuthContextType {
   user: User | null;
@@ -27,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      api.get('/auth/profile')
+      api.get(API_ROUTES.AUTH.PROFILE)
         .then(({ data }) => setUser(data))
         .catch(() => {
           localStorage.removeItem('token');
